@@ -1,4 +1,3 @@
-
 /**
  * 
  */
@@ -19,25 +18,40 @@ window.setInterval(function() {
 			$('.temp').html("temperature: " + data[2].temp);
 			$('.heartrate').html("heart rate: " + data[2].heartRate);
 		});
-		var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+		/*
+		var myLatlng = new google.maps.LatLng(-25.363882, 131.044922);
 		var marker = new google.maps.Marker({
-		    position: map.getCenter(),
-		    map: map,
-		    title: 'Click to zoom'
-		  });
-	
+			position : map.getCenter(),
+			map : map,
+			title : 'Click to zoom'
+		});
+		 
 		google.maps.event.addListener(marker, 'click', function() {
 			map.setZoom(8);
 			map.setCenter(marker.getPosition());
 		});
+		*/
+		trackDog();
 	});
 }, 1000);
-/*
- * $.ajax({ type: "GET", dataType: "jsonp", url:
- * "http://localhost:8080/sensor-rest-service/service/sensor/1", success:
- * function(data){ alert(data); $('.greeting-id').html(data.id);
- * $('.greeting-temp').html(data.temp);
- * $('.greeting-heartrate').html(data.heartRate); }
- * 
- * });
- */
+
+function trackDog() {
+
+	
+
+	var bounds = circle.getBounds();
+	map.fitBounds(bounds);
+	var sw = bounds.getSouthWest();
+	var ne = bounds.getNorthEast();
+	for (var i = 0; i < 100; i++) {
+		var ptLat = Math.random() * (ne.lat() - sw.lat()) + sw.lat();
+		var ptLng = Math.random() * (ne.lng() - sw.lng()) + sw.lng();
+		var point = new google.maps.LatLng(ptLat, ptLng);
+		if (google.maps.geometry.spherical.computeDistanceBetween(point, circle
+				.getCenter()) < circle.getRadius()) {
+			createMarker(map, point, "marker " + i);
+			// break;
+		}
+	}
+	
+}
