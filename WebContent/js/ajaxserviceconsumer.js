@@ -1,3 +1,4 @@
+
 /**
  * 
  */
@@ -14,9 +15,9 @@ window.setInterval(function() {
 		$.ajax({
 			url : "http://localhost:8080/sensor-rest-service/service/sensor/"
 		}).then(function(data) {
-			$('.greeting-id').html("sensor id: " + data[2].id);
-			$('.greeting-temp').html("temperature: " + data[2].temp);
-			$('.greeting-heartrate').html("heart rate: " + data[2].heartRate);
+			$('.id').html("sensor id: " + data[2].id);
+			$('.temp').html("temperature: " + data[2].temp);
+			$('.heartrate').html("heart rate: " + data[2].heartRate);
 		});
 		var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
 		var marker = new google.maps.Marker({
