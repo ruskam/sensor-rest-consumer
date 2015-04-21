@@ -3,61 +3,49 @@ var lng1, lat1;
 var lng2, lat2;
 var sensors = [];
 var infoWindow;
+var sensors = [];
 
-window.setInterval(function() {
-	$(document).ready(function() {
-		var id = "id007";
-		$.ajax({
+function parseJSONObject(rawJSONResponse) {
+    var parsedModuleObjectResponse = jQuery.parseJSON(rawJSONResponse);                
+    return parsedModuleObjectResponse;
+}
 
-			//url : "http://localhost:8080/sensor-rest-service/service/sensor/" + id
-			url : "http://199.116.235.116/sensor-rest-service/service/sensor/" + id
-		}).then(function(data) {
-			
-			$('.id').html("sensor id: " + data.id);
-			$('.temp').html("temperature: " + data.temp);
-			$('.heartrate').html("heart rate: " + data.heartRate);
-			$('.long').html("heart rate: " + data.location.x);
-			$('.lat').html("heart rate: " + data.location.y);
-			
-			lng = data.location.x;
-			lat = data.location.y;
-	
-			trackDog(lat, lng, data.id, data.heartRate, data.temp);
-			/*	
-			lng1 = data[1].location.x;
-			lat1 = data[1].location.y;
-			lng2 = data[2].location.x;
-			lat2 = data[2].location.y;
-			*/
-			// var point = new google.maps.LatLng(data[2].location.y,
-			// data[2].location.y);
-			// createMarker(map, point, 'temp');
-			
-			console.log(data);
-		});
 
-		// trackDog(lat1, lng1);
-		// trackDog(lat2, lng2);
 
+$(function(){
+	$("#sensorIdSelector").change(function(){
+		
+		var selectedValue = $(this).find(":selected").val();
+		//var url = "http://localhost:8080/sensor-rest-service/service/sensor/".concat(selectedValue);
+		if (typeof interval !== "undefined")
+			{
+				window.clearInterval(interval);
+			}
+		deleteMarkers();
+		interval = window.setInterval(function() {
+			$(document).ready(function() {
+				
+				$.ajax({
+					url : "http://localhost:8080/sensor-rest-service/service/sensor/" + selectedValue,
+					//url : "http://199.116.235.116/sensor-rest-service/service/sensor/" + id
+				//}).then(function(data) {
+				success: function(data){	
+					$('#id').text("Sensor ID: " + data.id);
+					$('#bodyTemp').text("Body temperature: " + data.temp + "C");
+					$('#heartRate').text("Heart rate: " + data.heartRate);
+					trackDog(data.location.y, data.location.x, data.id, data.heartRate, data.temp);
+					showSensors();
+					console.log(data);
+				}}
+				);
+				 
+			});
+		}, 1500);
+		
 	});
-}, 1500);
+});
 
 function trackDog(y, x, id, hr, t) {
-
-	// var bounds = circle.getBounds();
-	// map.fitBounds(bounds);
-	// var sw = bounds.getSouthWest();
-
-	// var ne = bounds.getNorthEast();
-	/*
-	 * for (var i = 0; i < 10; i++) { var ptLat = Math.random() * (ne.lat() -
-	 * sw.lat()) + sw.lat(); console.log(ptLat) var ptLng = Math.random() *
-	 * (ne.lng() - sw.lng()) + sw.lng(); console.log(ptLng) var point = new
-	 * google.maps.LatLng(ptLat, ptLng); if
-	 * (google.maps.geometry.spherical.computeDistanceBetween(point, circle
-	 * .getCenter()) < circle.getRadius()) { createMarker(map, point, "marker " +
-	 * i); // break; } }
-	 */
 	var point = new google.maps.LatLng(y, x);
 	createMarker(map, point, id, hr, t);
 }
@@ -76,14 +64,40 @@ function createMarker(map, point, id, heartRate, temp) {
 	      content: content
 	  });
 			
-	var marker = new google.maps.Marker({
+	var sensor = new google.maps.Marker({
 		position : point,
 		icon : "img/dogIcon.png",
 		map : map
 	});
-	google.maps.event.addListener(marker, 'mouseover', function() {
-		infoWindow.open(map, marker);
+	google.maps.event.addListener(sensor, 'mouseover', function() {
+		infoWindow.open(map, sensor);
 	});
 	
-	return marker;
+	sensors.push(sensor);
 }
+
+function showSensors() {
+	setAllMap(map);
+}
+
+function setAllMap(map) {
+	for (var i = 0; i < sensors.length; i++) {
+		sensors[i].setMap(map);
+	}
+}
+
+function clearSensors() {
+	setAllMap(null);
+}
+
+function deleteMarkers() {
+	clearSensors();
+	sensors = [];
+}
+
+
+
+
+
+
+

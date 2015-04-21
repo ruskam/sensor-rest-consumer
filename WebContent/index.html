@@ -1,26 +1,129 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Testing web service</title>
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<title>Make Everything Thingful</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="js/ajaxserviceconsumer.js"></script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"> </script>
+<script type="text/javascript"
+	src="http://maps.google.com/maps/api/js?sensor=false">
+	
+</script>
 <script src="js/map.js"></script>
 <link rel="stylesheet" href="css/styles.css" />
 </head>
 
 <body>
-	<h2>The webpage shows sensor values every second</h2>
-	<div>
-		<p class="id"></p>
-		<p class="temp"></p>
-		<p class="heartrate"></p>
-		<p class="long"></p>
-		<p class="lat"></p>
-		
+	<div id="selector">
+		<select id="sensorIdSelector">
+			<option selected>Click here to select a Sensor</option>
+			<option>id001</option>
+			<option>id002</option>
+			<option>id003</option>
+			<option>id004</option>
+			<option>id005</option>
+			<option>id006</option>
+			<option>id007</option>
+			<option>id008</option>
+			<option>id009</option>
+			<option>id010</option>
+			<option>id011</option>
+			<option>id012</option>
+			<option>id013</option>
+			<option>id014</option>
+			<option>id015</option>
+			<option>id016</option>
+			<option>id017</option>
+			<option>id018</option>
+			<option>id019</option>
+			<option>id020</option>
+			<option>id021</option>
+			<option>id022</option>
+			<option>id023</option>
+			<option>id024</option>
+			<option>id025</option>
+			<option>id026</option>
+			<option>id027</option>
+			<option>id028</option>
+			<option>id029</option>
+			<option>id030</option>
+			<option>id031</option>
+			<option>id032</option>
+			<option>id033</option>
+			<option>id034</option>
+			<option>id035</option>
+			<option>id036</option>
+			<option>id037</option>
+			<option>id038</option>
+			<option>id039</option>
+			<option>id040</option>
+			<option>id041</option>
+			<option>id042</option>
+			<option>id043</option>
+			<option>id044</option>
+			<option>id045</option>
+			<option>id046</option>
+			<option>id047</option>
+			<option>id048</option>
+			<option>id049</option>
+			<option>id050</option>
+			<option>id051</option>
+			<option>id052</option>
+			<option>id053</option>
+			<option>id054</option>
+			<option>id055</option>
+			<option>id056</option>
+			<option>id057</option>
+			<option>id058</option>
+			<option>id059</option>
+			<option>id060</option>
+			<option>id061</option>
+			<option>id062</option>
+			<option>id063</option>
+			<option>id064</option>
+			<option>id065</option>
+			<option>id066</option>
+			<option>id067</option>
+			<option>id068</option>
+			<option>id069</option>
+			<option>id070</option>
+			<option>id071</option>
+			<option>id072</option>
+			<option>id073</option>
+			<option>id074</option>
+			<option>id075</option>
+			<option>id076</option>
+			<option>id077</option>
+			<option>id078</option>
+			<option>id079</option>
+			<option>id080</option>
+			<option>id081</option>
+			<option>id082</option>
+			<option>id083</option>
+			<option>id084</option>
+			<option>id085</option>
+			<option>id086</option>
+			<option>id087</option>
+			<option>id088</option>
+			<option>id089</option>
+			<option>id090</option>
+			<option>id091</option>
+			<option>id092</option>
+			<option>id093</option>
+			<option>id094</option>
+			<option>id095</option>
+			<option>id096</option>
+			<option>id097</option>
+			<option>id098</option>
+			<option>id099</option>
+			<option>id100</option>
+		</select>
+
+		<p id="id">Sensor ID: no sensor selected</p>
+		<p id="bodyTemp">Body temperature: no sensor selected</p>
+		<p id="heartRate">Heart rate: no sensor selected</p>
 	</div>
 
 	<div id="map-canvas"></div>
-	
 </head>
 </html>
