@@ -16,7 +16,6 @@ $(function(){
 	$("#sensorIdSelector").change(function(){
 		
 		var selectedValue = $(this).find(":selected").val();
-		//var url = "http://localhost:8080/sensor-rest-service/service/sensor/".concat(selectedValue);
 		if (typeof interval !== "undefined")
 			{
 				window.clearInterval(interval);
@@ -24,23 +23,25 @@ $(function(){
 		deleteMarkers();
 		interval = window.setInterval(function() {
 			$(document).ready(function() {
-				
 				$.ajax({
-					url : "http://localhost:8080/sensor-rest-service/service/sensor/" + selectedValue,
-					//url : "http://199.116.235.116/sensor-rest-service/service/sensor/" + id
-				//}).then(function(data) {
-				success: function(data){	
-					$('#id').text("Sensor ID: " + data.id);
-					$('#bodyTemp').text("Body temperature: " + data.temp + "C");
-					$('#heartRate').text("Heart rate: " + data.heartRate);
-					trackDog(data.location.y, data.location.x, data.id, data.heartRate, data.temp);
-					showSensors();
-					console.log(data);
-				}}
+					url: "GetSensorValues",
+					dataType: 'JSON',
+					type: "GET",
+					data: { 
+					      sensorID: JSON.stringify(selectedValue)
+					    },
+					//async:false,
+					success: function(data){	
+						$('#id').text("Sensor ID: " + data.id);
+						$('#bodyTemp').text("Body temperature: " + data.temp + "C");
+						$('#heartRate').text("Heart rate: " + data.heartRate);
+						trackDog(data.location.y, data.location.x, data.id, data.heartRate, data.temp);
+						showSensors();
+						console.log(data);
+					}}
 				);
-				 
 			});
-		}, 1500);
+		}, 1000);
 		
 	});
 });
