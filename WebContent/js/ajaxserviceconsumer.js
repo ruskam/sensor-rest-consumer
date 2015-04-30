@@ -32,6 +32,7 @@ $(function(){
 					    },
 					//async:false,
 					success: function(data){	
+						fadeAway();
 						$('#id').text("Sensor ID: " + data.id);
 						$('#bodyTemp').text("Body temperature: " + data.temp + "C");
 						$('#heartRate').text("Heart rate: " + data.heartRate);
@@ -96,7 +97,28 @@ function deleteMarkers() {
 	sensors = [];
 }
 
+function fadeAway() {
 
+	if (sensors.length == 1) {
+		setAllMap(null);
+		sensors[0].setIcon("img/dogIcon1.png");
+	}
+
+	if (sensors.length == 2) {
+		setAllMap(null);
+		sensors[1].setIcon("img/dogIcon1.png");
+		sensors[0].setIcon("img/dogIcon2.png");
+	}
+	
+	if (sensors.length >= 3) {
+		setAllMap(null);
+		sensors.splice(0, sensors.length - 3);
+		sensors[2].setIcon("img/dogIcon1.png");
+		sensors[1].setIcon("img/dogIcon2.png");
+		sensors[0].setIcon("img/dogIcon3.png");
+		
+	}	
+}
 
 
 
